@@ -2,14 +2,17 @@
  * Application configuration
  */
 export interface Configuration {
-  auth: {
-    url: string;
-    realm: string;
-    clientId: string;
-  };
   api: {
     baseUrl: string;
   };
+}
+
+/**
+ * Course match search mode
+ */
+export enum SearchMode {
+  CODE,
+  TEXT
 }
 
 /**
