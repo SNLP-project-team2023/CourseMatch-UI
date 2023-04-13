@@ -6,6 +6,7 @@ import fi from "./fi.json";
  * Localized strings
  */
 export interface Localized extends LocalizedStringsMethods {
+// TODO Finnish localization
 
   /**
    * Translations related to generic words
@@ -24,8 +25,52 @@ export interface Localized extends LocalizedStringsMethods {
    */
   errorHandling: {
     title: string;
+    match: {
+      fetch: string;
+    },
+    course: {
+      fetch: string;
+    }
   };
 
+  /**
+   * Translations related to header
+   */
+  header: {
+    icon: string;
+    title: string
+    infoText: string
+    languages: {
+      fi: string
+      en: string
+    }
+  }
+
+  /**
+   * Translations related to course
+   */
+  course: {
+    credits: string;
+    period: string;
+    language: string;
+    description: string;
+    goToMycourses: string;
+    goToSisu: string;
+  }
+
+  /**
+   * Translations related to main screen
+   */
+  mainScreen: {
+    searchMode: {
+      code: string;
+      text: string;
+    }
+    moreOptions: string;
+    courseCode: string;
+    courseQueryText: string;
+    matchYourCourses: string;
+  }
 }
 
 /**

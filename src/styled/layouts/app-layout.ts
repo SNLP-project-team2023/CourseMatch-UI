@@ -10,6 +10,8 @@ export const Root = styled(Box, {
   height: "100vh",
   width: "100vw",
   overflow: "hidden",
+  display: "flex",
+  flexDirection: "column",
   backgroundColor: theme.palette.background.default
 }));
 
@@ -24,5 +26,6 @@ export const Content = styled(Box, {
   flexDirection: "column",
   flex: 1,
   width: "100%",
-  minHeight: `calc(100vh - ${theme.spacing(64)}px)`
+  minHeight: `calc(100vh - ${theme.spacing(64)}px)`,
+  overflow: "hidden"
 }));

@@ -1,4 +1,4 @@
-import { cleanEnv, str, url } from "envalid";
+import { cleanEnv, url } from "envalid";
 import { Configuration } from "types";
 
 /**

@@ -3,9 +3,25 @@ info:
   version: 0.1.0
 tags:
 - name: Match
+- name: Course
 servers:
-- url: http://localhost:5000/
+- url: http://127.0.0.1:5000/
 paths:
+  /courses:
+    get:
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseAlias'
+          description: Successful response
+      tags:
+      - Course
+      summary: Get Courses
   /match/text:
     get:
       parameters:
@@ -83,6 +99,16 @@ components:
         message:
           type: string
       type: object
+    CourseAlias:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - name
     Course:
       type: object
       properties:
@@ -102,3 +128,8 @@ components:
           type: string
         credits:
           type: integer
+      required:
+      - code
+      - credits
+      - language
+      - name

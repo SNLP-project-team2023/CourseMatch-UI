@@ -10,7 +10,42 @@
   },
 
   "errorHandling": {
-    "title": "Error"
-  }
+    "title": "Error",
+    "match": {
+      "fetch": "Error occurred when matching courses"
+    },
+    "course": {
+      "fetch": "Error occurred when fetching courses"
+    }
+  },
 
+  "course": {
+    "credits": "Crs",
+    "period": "Period",
+    "language": "Language",
+    "description": "Description",
+    "goToMycourses": "Go to myCourses",
+    "goToSisu": "Go to Sisu"
+  },
+
+  "header": {
+    "icon": "A!",
+    "title": "CourseMatch",
+    "infoText": "CourseMatch is a recommender system based on the word embedding technique for course selection. It matches the user's course search with a database of course descriptions available through the Aalto API, and suggest the most relevant courses.",
+    "languages": {
+      "fi": "fi",
+      "en": "en"
+    }
+  },
+
+  "mainScreen": {
+    "searchMode": {
+      "code": "code",
+      "text": "text"
+    },
+    "moreOptions": "more options",
+    "courseCode": "Course code",
+    "courseQueryText": "Course query text",
+    "matchYourCourses": "Match your courses!"
+  }
 }

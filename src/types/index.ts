@@ -11,8 +11,8 @@ export interface Configuration {
  * Course match search mode
  */
 export enum SearchMode {
-  CODE,
-  TEXT
+  CODE = "CODE",
+  TEXT = "TEXT"
 }
 
 /**

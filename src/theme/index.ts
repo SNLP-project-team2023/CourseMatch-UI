@@ -12,10 +12,10 @@ export default createTheme({
 
   palette: {
     primary: {
-      main: "#000000"
+      main: "#512DA8"
     },
     secondary: {
-      main: "#F9473B",
+      main: "#ffffff",
       light: "#39a849"
     },
     text: {
@@ -23,7 +23,7 @@ export default createTheme({
       secondary: "#ffffff"
     },
     background: {
-      default: "#E0E0E0",
+      default: "#f3fbff",
       paper: "#ffffff"
     }
   },
@@ -64,7 +64,8 @@ export default createTheme({
     },
     body2: {
       fontSize: 16,
-      lineHeight: 1.63
+      lineHeight: 1.63,
+      color: "rgba(0, 0, 0, 0.6)"
     }
   },
 

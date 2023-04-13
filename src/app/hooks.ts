@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
 
@@ -57,4 +57,30 @@ export const useDebounce = (value: string, delay: number) => {
   }, [ value, delay ]);
 
   return debouncedValue;
+};
+
+/**
+ * Hook to debounce call for functions
+ *
+ * @param func function
+ * @param delay delay
+ * @returns debounced function
+ */
+export const useDebouncedCall = <T>(func: (value: T) => void, delay = 1000) => {
+  const [ debounceTimerId, setDebounceTimerId ] = useState<NodeJS.Timeout>();
+
+  return (value: T) => {
+    debounceTimerId && clearTimeout(debounceTimerId);
+    setDebounceTimerId(setTimeout(() => func(value), delay));
+  };
+};
+
+/**
+ * Custom hook that provides API client from given getter method with up-to-date authentication from Redux.
+ * Can only be used in components under Redux store provider.
+ *
+ * @param apiClientFactory factory function for creating API client
+ */
+export const useApiClient = <T extends {}>(apiClientFactory: () => T): T => {
+  return React.useMemo(() => apiClientFactory(), []);
 };

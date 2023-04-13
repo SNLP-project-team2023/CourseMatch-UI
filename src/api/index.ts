@@ -1,7 +1,7 @@
 // import { Configuration } from "../generated/client";
 
 import Config from "app/config";
-import { Configuration, ConfigurationParameters, MatchApi } from "generated/client";
+import { Configuration, ConfigurationParameters, CourseApi, MatchApi } from "generated/client";
 
 /**
  * Utility class for loading api with predefined configuration
@@ -17,12 +17,10 @@ namespace Api {
    */
   const getConfigurationFactory = <T extends {}>(
     Constructor: new(params: ConfigurationParameters) => T,
-    basePath: string,
-    accessToken?: string
+    basePath: string
   ) => () => (
     new Constructor({
-      basePath: basePath,
-      accessToken: accessToken
+      basePath: basePath
     })
   );
 
@@ -31,15 +29,15 @@ namespace Api {
    *
    * @param accessToken access token
    */
-  export const getApiClient = (accessToken?: string) => {
+  export const getApiClient = () => {
     const getConfiguration = getConfigurationFactory(
       Configuration,
-      Config.get().api.baseUrl,
-      accessToken
+      Config.get().api.baseUrl
     );
 
     return {
-      draftsApi: new MatchApi(getConfiguration()),
+      matchApi: new MatchApi(getConfiguration()),
+      courseApi: new CourseApi(getConfiguration())
     };
   };
 
