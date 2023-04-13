@@ -1,25 +1,5 @@
 # Getting started with React Typescript template
 
-### `Add OpenApi specification file (swagger.yaml)`
-
-File can be added as a Git submodule, which helps the development with different spec versions:
-
-```sh
-  git submodule add git@github.com:example-api-spec.git
-```
-
-### `Update api spec generator command`
-
-Change the command inside *package.json* to match the added API specification file location
-
-```json
-  ...
-  "scripts": {
-    ...
-    "build-client": "... -i example-api-spec/swagger.yaml ..."
-  }
-```
-
 ### `Add environment variables`
 
 To add necessary environment variables, create .env file to project root folder and write variables inside it with following syntax:
