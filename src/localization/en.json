@@ -24,7 +24,7 @@
     "period": "Period",
     "language": "Language",
     "description": "Description",
-    "goToMycourses": "Go to myCourses",
+    "goToMycourses": "Go to MyCourses",
     "goToSisu": "Go to Sisu"
   },
 
@@ -44,8 +44,21 @@
       "text": "text"
     },
     "moreOptions": "more options",
-    "courseCode": "Course code",
-    "courseQueryText": "Course query text",
-    "matchYourCourses": "Match your courses!"
+    "courseCodePlaceholder": "Course code",
+    "courseCodeDescription": "Pick a course from the list to get the most matched courses.",
+    "courseQueryTextPlaceholder": "Send a message...",
+    "matchYourCourses": "Match your courses!",
+    "examplesTitle": "Examples",
+    "examples": [
+      "Explain quantum computing in simple terms",
+      "I want to learn how to program a robot",
+      "Introduction to the stock market and trading"
+    ],
+    "limitationsTitle": "Limitations",
+    "limitations": [
+      "May occasionally generate incorrect information",
+      "Only courses taught in English are included in the search",
+      "Accepts only English text for the search"
+    ]
   }
 }
