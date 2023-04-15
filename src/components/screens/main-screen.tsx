@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { IconButton, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Accordion, AccordionDetails, AccordionSummary, Autocomplete, CircularProgress, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import React, { useRef, useContext, useEffect, useState } from "react";
+import { Pagination, Button, Accordion, AccordionDetails, AccordionSummary, Autocomplete, CircularProgress, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import strings from "localization/strings";
 import AppLayout from "components/layouts/app-layout";
 import { SearchMode } from "types";
@@ -8,7 +8,7 @@ import CourseCard from "components/generic/course-card";
 import { ErrorContext } from "components/contexts/error-handler";
 import { useApiClient, useDebouncedCall } from "app/hooks";
 import Api from "api";
-import { ArrowLeft, ArrowRight, Brightness5, Warning, Edit, ExpandMore, Search } from "@mui/icons-material";
+import { Warning, Edit, ExpandMore, Search } from "@mui/icons-material";
 import { EmptyBox, PaperCard } from "styled/screens/main-screen";
 import theme from "theme";
 
@@ -22,12 +22,14 @@ const MainScreen: React.FC = () => {
   const [coursesCode, setCourseCode] = useState("");
   const [queryText, setQueryText] = useState("");
   const [loading, setLoading] = useState(false);
-  const [startIndex, setStartIndex] = useState(0);
+  const [page, setPage] = useState(1);
 
   const errorContext = useContext(ErrorContext);
   const { matchApi, courseApi } = useApiClient(Api.getApiClient);
 
-  const coursesToView = 5;
+  const coursesPerPage = 5;
+
+  const courseListRef = useRef<HTMLDivElement>(null);
 
   /**
    * Fetches course alias
@@ -101,7 +103,6 @@ const MainScreen: React.FC = () => {
       setSearchMode(SearchMode.TEXT);
       setCourseCode("");
     }
-    setStartIndex(0);
     setCourses([]);
   };
 
@@ -190,6 +191,63 @@ const MainScreen: React.FC = () => {
   };
 
   /**
+   * Render limitations
+   */
+  const renderLimitations = () => (
+    <Accordion sx={{ width: "100%" }}>
+      <AccordionSummary expandIcon={<Warning/>} aria-controls="limitations-content" id="limitations-header">
+        <Typography variant="h4">{strings.mainScreen.limitationsTitle}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Stack direction="column" spacing={1}>
+          {strings.mainScreen.limitations.map((limitation: string) => (
+            <Button
+              key={limitation}
+              variant="outlined"
+              disabled
+              sx={{
+                textTransform: "none"
+              }}
+            >
+              {limitation}
+            </Button>
+          ))}
+        </Stack>
+      </AccordionDetails>
+    </Accordion>
+  );
+  
+  /**
+   * Renders examples
+   */
+  const renderExamples = () => (
+    <Stack direction="column" alignItems="center" spacing={2}>
+      <Typography variant="h4">{strings.mainScreen.examplesTitle}</Typography>
+      <Stack
+        direction="row"
+        spacing={2}
+        alignItems="stretch"
+      >
+        {strings.mainScreen.examples.map((example: string) => (
+          <Button
+            key={example}
+            variant="outlined"
+            onClick={() => onQueryTextChange(example)}
+            sx={{
+              borderRadius: 1,
+              bgcolor: "grey.100",
+              textTransform: "none",
+              flex: 1
+            }}
+          >
+            {example}
+          </Button>
+        ))}
+      </Stack>
+    </Stack>
+  );
+
+  /**
    * Renders text search
    */
   const renderTextSearch = () => (
@@ -200,48 +258,8 @@ const MainScreen: React.FC = () => {
       spacing={4}
       sx={{ padding: 2 }}
     >
-      <TableContainer sx={{ border: "none" }}>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ textAlign: "center" }}>
-                <Brightness5/>
-                <Typography variant="h4" gutterBottom>{strings.mainScreen.examplesTitle}</Typography>
-              </TableCell>
-              <TableCell sx={{ textAlign: "center" }}>
-                <Warning/>
-                <Typography variant="h4" gutterBottom>{strings.mainScreen.limitationsTitle}</Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell sx={{ textAlign: "center", verticalAlign: "middle" }}>
-                {strings.mainScreen.examples.map((example: string) => (
-                  <Button
-                    variant="outlined"
-                    sx={{ minWidth: "200px", m: 1 }}
-                    onClick={() => onQueryTextChange(example)}
-                  >
-                    {example}
-                  </Button>
-                ))}
-              </TableCell>
-              <TableCell sx={{ textAlign: "center", verticalAlign: "middle" }}>
-                {strings.mainScreen.limitations.map((limitation: string) => (
-                  <Button
-                    variant="outlined"
-                    disabled
-                    sx={{ minWidth: "200px", m: 1 }}
-                  >
-                    {limitation}
-                  </Button>
-                ))}
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {renderLimitations()}
+      {renderExamples()}
       <TextField
         fullWidth
         multiline
@@ -305,19 +323,46 @@ const MainScreen: React.FC = () => {
   /**
    * Renders courses
    */
-  const renderCourses = () => (
-    <Stack spacing={3}>
-      {courses.slice(startIndex, startIndex + coursesToView).map(course => <CourseCard course={course}/>)}
-      <Stack direction="row" justifyContent="center" alignItems="center">
-        <IconButton onClick={() => setStartIndex(startIndex - coursesToView)} disabled={startIndex < coursesToView}>
-          <ArrowLeft/>
-        </IconButton>
-        <IconButton onClick={() => setStartIndex(startIndex + coursesToView)} disabled={startIndex + coursesToView >= courses.length}>
-          <ArrowRight/>
-        </IconButton>
+  const renderCourses = () => {
+    const startIndex = (page - 1) * coursesPerPage;
+    const endIndex = startIndex + coursesPerPage;
+    const displayedCourses = courses.slice(startIndex, endIndex);
+  
+    /**
+     * Handles page change
+     */
+    const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
+      setPage(newPage);
+      // Wait for a short delay before scrolling to the first course card on the new page
+      setTimeout(() => {
+        if (courseListRef.current !== null) {
+          courseListRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 50);
+    };
+  
+    return (
+      <Stack spacing={3}>
+        <div ref={courseListRef}/>
+        {displayedCourses.map(course => (
+          <CourseCard key={course.code} course={course}/>
+        ))}
+        <Stack
+          direction="row"
+          sx={{
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <Pagination
+            count={Math.ceil(courses.length / coursesPerPage)}
+            page={page}
+            onChange={handlePageChange}
+          />
+        </Stack>
       </Stack>
-    </Stack>
-  );
+    );
+  };
 
   /**
    * Renders loading
