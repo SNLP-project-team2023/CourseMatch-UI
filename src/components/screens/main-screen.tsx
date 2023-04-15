@@ -92,9 +92,8 @@ const MainScreen: React.FC = () => {
   };
 
   /**
-   * On course code change handler
-   * 
-  */
+   * On course code change handler 
+   */
   const toggleSearchMode = () => {
     if (searchMode === SearchMode.TEXT) {
       setSearchMode(SearchMode.CODE);
