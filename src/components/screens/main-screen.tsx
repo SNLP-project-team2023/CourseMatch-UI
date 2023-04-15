@@ -165,7 +165,7 @@ const MainScreen: React.FC = () => {
         alignItems="center"
         width="100%"
         spacing={4}
-        sx={{ padding: 2 }}
+        padding={2}
       >
         <Typography>{strings.mainScreen.courseCodeDescription}</Typography>
         <Autocomplete
