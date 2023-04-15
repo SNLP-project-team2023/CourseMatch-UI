@@ -28,8 +28,12 @@ const MainScreen: React.FC = () => {
   const { matchApi, courseApi } = useApiClient(Api.getApiClient);
 
   const coursesPerPage = 5;
-
   const courseListRef = useRef<HTMLDivElement>(null);
+  const queryExamples = [
+    "Explain quantum computing in simple terms",
+    "I want to learn how to program a robot",
+    "Introduction to the stock market and trading"
+  ];
 
   /**
    * Fetches course alias
@@ -103,6 +107,19 @@ const MainScreen: React.FC = () => {
       setCourseCode("");
     }
     setCourses([]);
+  };
+
+  /**
+   * Handles page change
+   */
+  const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
+    setPage(newPage);
+    // Wait for a short delay before scrolling to the first course card on the new page
+    setTimeout(() => {
+      if (courseListRef.current !== null) {
+        courseListRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 50);
   };
 
   /**
@@ -227,13 +244,13 @@ const MainScreen: React.FC = () => {
         spacing={2}
         alignItems="stretch"
       >
-        {strings.mainScreen.examples.map((example: string) => (
+        {queryExamples.map((example: string) => (
           <Button
             key={example}
-            variant="outlined"
+            variant="text"
             onClick={() => onQueryTextChange(example)}
             sx={{
-              borderRadius: 1,
+              borderRadius: theme.spacing(1),
               bgcolor: "grey.100",
               textTransform: "none",
               flex: 1
@@ -255,7 +272,7 @@ const MainScreen: React.FC = () => {
       alignItems="center"
       width="100%"
       spacing={4}
-      sx={{ padding: 2 }}
+      padding={2}
     >
       {renderLimitations()}
       {renderExamples()}
@@ -327,19 +344,6 @@ const MainScreen: React.FC = () => {
     const endIndex = startIndex + coursesPerPage;
     const displayedCourses = courses.slice(startIndex, endIndex);
   
-    /**
-     * Handles page change
-     */
-    const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
-      setPage(newPage);
-      // Wait for a short delay before scrolling to the first course card on the new page
-      setTimeout(() => {
-        if (courseListRef.current !== null) {
-          courseListRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 50);
-    };
-  
     return (
       <Stack spacing={3}>
         <div ref={courseListRef}/>
@@ -348,16 +352,16 @@ const MainScreen: React.FC = () => {
         ))}
         <Stack
           direction="row"
-          sx={{
-            display: "flex",
-            justifyContent: "center"
-          }}
+          display="flex"
+          justifyContent="center"
         >
-          <Pagination
-            count={Math.ceil(courses.length / coursesPerPage)}
-            page={page}
-            onChange={handlePageChange}
-          />
+          { courses.length > coursesPerPage &&
+            <Pagination
+              count={Math.ceil(courses.length / coursesPerPage)}
+              page={page}
+              onChange={handlePageChange}
+            />
+          }
         </Stack>
       </Stack>
     );

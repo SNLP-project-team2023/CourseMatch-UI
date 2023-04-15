@@ -49,11 +49,6 @@
     "courseQueryTextPlaceholder": "Send a message...",
     "matchYourCourses": "Match your courses!",
     "examplesTitle": "Ask anything or try an example",
-    "examples": [
-      "Explain quantum computing in simple terms",
-      "I want to learn how to program a robot",
-      "Introduction to the stock market and trading"
-    ],
     "limitationsTitle": "Limitations",
     "limitations": [
       "May occasionally generate incorrect information",

@@ -49,11 +49,6 @@
     "courseQueryTextPlaceholder": "Lähetä viesti...",
     "matchYourCourses": "Sovita kurssit yhteen!",
     "examplesTitle": "Kysy mitä tahansa tai kokeile esimerkkiä",
-    "examples": [
-      "Explain quantum computing in simple terms",
-      "I want to learn how to program a robot",
-      "Introduction to the stock market and trading"
-    ],
     "limitationsTitle": "Rajoitukset",
     "limitations": [
       "Saattaa toisinaan tuottaa virheellisiä tietoja",
