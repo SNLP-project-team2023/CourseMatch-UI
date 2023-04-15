@@ -22,6 +22,7 @@ const MainScreen: React.FC = () => {
   const [coursesCode, setCourseCode] = useState("");
   const [queryText, setQueryText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showExamples, setShowExamples] = useState(true);
   const [page, setPage] = useState(1);
 
   const errorContext = useContext(ErrorContext);
@@ -92,6 +93,7 @@ const MainScreen: React.FC = () => {
   const onQueryTextChange = (newQueryText: string) => {
     setQueryText(newQueryText);
     setLoading(true);
+    setShowExamples(newQueryText === "");
     onCourseTextMatchDebounced(newQueryText);
   };
 
@@ -107,6 +109,7 @@ const MainScreen: React.FC = () => {
       setCourseCode("");
     }
     setCourses([]);
+    setShowExamples(true);
   };
 
   /**
@@ -237,30 +240,32 @@ const MainScreen: React.FC = () => {
    * Renders examples
    */
   const renderExamples = () => (
-    <Stack direction="column" alignItems="center" spacing={2}>
-      <Typography variant="h4">{strings.mainScreen.examplesTitle}</Typography>
-      <Stack
-        direction="row"
-        spacing={2}
-        alignItems="stretch"
-      >
-        {queryExamples.map((example: string) => (
-          <Button
-            key={example}
-            variant="text"
-            onClick={() => onQueryTextChange(example)}
-            sx={{
-              borderRadius: theme.spacing(1),
-              bgcolor: "grey.100",
-              textTransform: "none",
-              flex: 1
-            }}
-          >
-            {example}
-          </Button>
-        ))}
+    <div style={{ display: showExamples ? "block" : "none" }}>
+      <Stack direction="column" alignItems="center" spacing={2}>
+        <Typography variant="h4">{strings.mainScreen.examplesTitle}</Typography>
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems="stretch"
+        >
+          {queryExamples.map((example: string) => (
+            <Button
+              key={example}
+              variant="text"
+              onClick={() => onQueryTextChange(example)}
+              sx={{
+                borderRadius: theme.spacing(1),
+                bgcolor: "grey.100",
+                textTransform: "none",
+                flex: 1
+              }}
+            >
+              {example}
+            </Button>
+          ))}
+        </Stack>
       </Stack>
-    </Stack>
+    </div>
   );
 
   /**
@@ -274,7 +279,6 @@ const MainScreen: React.FC = () => {
       spacing={4}
       padding={2}
     >
-      {renderLimitations()}
       {renderExamples()}
       <TextField
         fullWidth
