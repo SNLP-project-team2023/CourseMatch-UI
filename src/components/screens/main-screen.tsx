@@ -240,32 +240,26 @@ const MainScreen: React.FC = () => {
    * Renders examples
    */
   const renderExamples = () => (
-    <div style={{ display: showExamples ? "block" : "none" }}>
-      <Stack direction="column" alignItems="center" spacing={2}>
-        <Typography variant="h4">{strings.mainScreen.examplesTitle}</Typography>
-        <Stack
-          direction="row"
-          spacing={2}
-          alignItems="stretch"
-        >
-          {queryExamples.map((example: string) => (
-            <Button
-              key={example}
-              variant="text"
-              onClick={() => onQueryTextChange(example)}
-              sx={{
-                borderRadius: theme.spacing(1),
-                bgcolor: "grey.100",
-                textTransform: "none",
-                flex: 1
-              }}
-            >
-              {example}
-            </Button>
-          ))}
-        </Stack>
+    <Stack direction="column" alignItems="center" spacing={2}>
+      <Typography variant="h4" textAlign="center">{strings.mainScreen.examplesTitle}</Typography>
+      <Stack direction="row" spacing={2} alignItems="stretch">
+        {queryExamples.map((example: string) => (
+          <Button
+            key={example}
+            variant="text"
+            onClick={() => onQueryTextChange(example)}
+            sx={{
+              borderRadius: theme.spacing(1),
+              bgcolor: "grey.100",
+              textTransform: "none",
+              flex: 1
+            }}
+          >
+            {example}
+          </Button>
+        ))}
       </Stack>
-    </div>
+    </Stack>
   );
 
   /**
@@ -279,7 +273,7 @@ const MainScreen: React.FC = () => {
       spacing={4}
       padding={2}
     >
-      {renderExamples()}
+      {showExamples && renderExamples()}
       <TextField
         fullWidth
         multiline
