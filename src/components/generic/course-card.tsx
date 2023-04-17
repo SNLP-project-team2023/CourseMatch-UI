@@ -95,6 +95,17 @@ const CourseCard: React.FC<Props> = ({
             <Typography variant="h5">{course.language}</Typography>
             <Typography variant="h5">{course.period}</Typography>
           </Stack>
+          <Typography
+            variant="body2"
+            sx={{
+              position: "relative",
+              textAlign: "right",
+              color: "blue",
+              textDecoration: "underline"
+            }}
+          >
+            { strings.course.moreInfo }
+          </Typography>
         </Stack>
       </PaperCard>
       {renderCourseDialog()}

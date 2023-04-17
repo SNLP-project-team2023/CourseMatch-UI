@@ -25,7 +25,8 @@
     "language": "Kieli",
     "description": "Kuvaus",
     "goToMycourses": "Siirry MyCoursesiin",
-    "goToSisu": "Siirry Sisuun"
+    "goToSisu": "Siirry Sisuun",
+    "moreInfo": "Katso lisätietoja"
   },
 
   "header": {
