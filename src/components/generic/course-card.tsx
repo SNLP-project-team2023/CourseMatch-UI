@@ -104,7 +104,7 @@ const CourseCard: React.FC<Props> = ({
               textDecoration: "underline"
             }}
           >
-            See details
+            { strings.course.moreInfo }
           </Typography>
         </Stack>
       </PaperCard>

@@ -25,7 +25,8 @@
     "language": "Language",
     "description": "Description",
     "goToMycourses": "Go to myCourses",
-    "goToSisu": "Go to Sisu"
+    "goToSisu": "Go to Sisu",
+    "moreInfo": "Katso lisätietoja"
   },
 
   "header": {
