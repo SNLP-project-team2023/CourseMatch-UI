@@ -114,6 +114,8 @@ const MainScreen: React.FC = () => {
 
   /**
    * Handles page change
+   * 
+   * @param newPage new page index
    */
   const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
     setPage(newPage);
