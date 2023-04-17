@@ -71,8 +71,6 @@ export interface Localized extends LocalizedStringsMethods {
     courseQueryTextPlaceholder: string;
     matchYourCourses: string;
     examplesTitle: string;
-    limitationsTitle: string;
-    limitations: string[];
   }
 }
 
