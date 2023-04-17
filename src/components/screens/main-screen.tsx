@@ -8,7 +8,7 @@ import CourseCard from "components/generic/course-card";
 import { ErrorContext } from "components/contexts/error-handler";
 import { useApiClient, useDebouncedCall } from "app/hooks";
 import Api from "api";
-import { Warning, Edit, ExpandMore, Search } from "@mui/icons-material";
+import { Edit, ExpandMore, Search } from "@mui/icons-material";
 import { EmptyBox, PaperCard } from "styled/screens/main-screen";
 import theme from "theme";
 
@@ -21,8 +21,8 @@ const MainScreen: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [coursesCode, setCourseCode] = useState("");
   const [queryText, setQueryText] = useState("");
+  const [emptyQuery, setEmptyQuery] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [showExamples, setShowExamples] = useState(true);
   const [page, setPage] = useState(1);
 
   const errorContext = useContext(ErrorContext);
@@ -93,7 +93,7 @@ const MainScreen: React.FC = () => {
   const onQueryTextChange = (newQueryText: string) => {
     setQueryText(newQueryText);
     setLoading(true);
-    setShowExamples(newQueryText === "");
+    setEmptyQuery(newQueryText === "");
     onCourseTextMatchDebounced(newQueryText);
   };
 
@@ -109,7 +109,7 @@ const MainScreen: React.FC = () => {
       setCourseCode("");
     }
     setCourses([]);
-    setShowExamples(true);
+    setEmptyQuery(true);
   };
 
   /**
@@ -248,7 +248,7 @@ const MainScreen: React.FC = () => {
       spacing={4}
       padding={2}
     >
-      {showExamples && renderExamples()}
+      {emptyQuery && renderExamples()}
       <TextField
         fullWidth
         multiline
@@ -353,6 +353,10 @@ const MainScreen: React.FC = () => {
    * Renders search results
    */
   const renderSearchResults = () => {
+    if (searchMode === SearchMode.TEXT && emptyQuery) {
+      return renderEmptyResult();
+    }
+
     if (loading) {
       return renderLoading();
     }
