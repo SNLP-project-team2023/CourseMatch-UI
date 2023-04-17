@@ -212,33 +212,6 @@ const MainScreen: React.FC = () => {
   };
 
   /**
-   * Render limitations
-   */
-  const renderLimitations = () => (
-    <Accordion sx={{ width: "100%" }}>
-      <AccordionSummary expandIcon={<Warning/>} aria-controls="limitations-content" id="limitations-header">
-        <Typography variant="h4">{strings.mainScreen.limitationsTitle}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Stack direction="column" spacing={1}>
-          {strings.mainScreen.limitations.map((limitation: string) => (
-            <Button
-              key={limitation}
-              variant="outlined"
-              disabled
-              sx={{
-                textTransform: "none"
-              }}
-            >
-              {limitation}
-            </Button>
-          ))}
-        </Stack>
-      </AccordionDetails>
-    </Accordion>
-  );
-  
-  /**
    * Renders examples
    */
   const renderExamples = () => (
