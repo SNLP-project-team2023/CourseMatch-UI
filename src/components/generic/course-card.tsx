@@ -85,7 +85,7 @@ const CourseCard: React.FC<Props> = ({
    */
   return (
     <>
-      <PaperCard elevation={6} sx={{ width: 700 }} onClick={() => setDialogOpen(true)}>
+      <PaperCard elevation={6} sx={{ width: 700, cursor: "pointer" }} onClick={() => setDialogOpen(true)}>
         <Stack spacing={2}>
           <Stack>
             <Typography variant="h3">{course.name}</Typography>

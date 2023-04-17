@@ -45,8 +45,10 @@
       "text": "text"
     },
     "moreOptions": "more options",
-    "courseCode": "Course code",
-    "courseQueryText": "Course query text",
-    "matchYourCourses": "Match your courses!"
+    "courseCodePlaceholder": "Course code",
+    "courseCodeDescription": "Pick a course from the list to get the most matched courses.",
+    "courseQueryTextPlaceholder": "Send a message...",
+    "matchYourCourses": "Match your courses!",
+    "examplesTitle": "Ask anything or try an example",
   }
 }
