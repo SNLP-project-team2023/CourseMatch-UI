@@ -49,11 +49,5 @@
     "courseQueryTextPlaceholder": "Lähetä viesti...",
     "matchYourCourses": "Sovita kurssit yhteen!",
     "examplesTitle": "Kysy mitä tahansa tai kokeile esimerkkiä",
-    "limitationsTitle": "Rajoitukset",
-    "limitations": [
-      "Saattaa toisinaan tuottaa virheellisiä tietoja",
-      "Vain englanninkieliset kurssit sisältyvät hakuun",
-      "Hyväksyy vain englanninkielisen tekstin hakuun"
-    ]
   }
 }
