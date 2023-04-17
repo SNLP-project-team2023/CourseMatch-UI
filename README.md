@@ -12,7 +12,7 @@ npm run build
 Create *.env* file and add:
 
 ```
-REACT_APP_API_BASE_URL=http://localhost:5000
+REACT_APP_API_BASE_URL=API_URL
 ```
 
 Run the app in the development mode:
