@@ -49,11 +49,5 @@
     "courseQueryTextPlaceholder": "Send a message...",
     "matchYourCourses": "Match your courses!",
     "examplesTitle": "Ask anything or try an example",
-    "limitationsTitle": "Limitations",
-    "limitations": [
-      "May occasionally generate incorrect information",
-      "Only courses taught in English are included in the search",
-      "Accepts only English text for the search"
-    ]
   }
 }
