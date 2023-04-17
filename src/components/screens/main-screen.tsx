@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, Box, CircularProgress, IconButton, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import React, { useRef, useContext, useEffect, useState } from "react";
+import { Pagination, Button, Accordion, AccordionDetails, AccordionSummary, Autocomplete, CircularProgress, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import strings from "localization/strings";
 import AppLayout from "components/layouts/app-layout";
 import { SearchMode } from "types";
@@ -8,7 +8,7 @@ import CourseCard from "components/generic/course-card";
 import { ErrorContext } from "components/contexts/error-handler";
 import { useApiClient, useDebouncedCall } from "app/hooks";
 import Api from "api";
-import { Edit, ExpandMore, Search } from "@mui/icons-material";
+import { Warning, Edit, ExpandMore, Search } from "@mui/icons-material";
 import { EmptyBox, PaperCard } from "styled/screens/main-screen";
 import theme from "theme";
 
@@ -16,15 +16,25 @@ import theme from "theme";
  * Main screen component
  */
 const MainScreen: React.FC = () => {
-  const [searchMode, setSearchMode] = useState<SearchMode>(SearchMode.CODE);
+  const [searchMode, setSearchMode] = useState<SearchMode>(SearchMode.TEXT);
   const [courseAliases, setCourseAliases] = useState<CourseAlias[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [coursesCode, setCourseCode] = useState("");
   const [queryText, setQueryText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showExamples, setShowExamples] = useState(true);
+  const [page, setPage] = useState(1);
 
   const errorContext = useContext(ErrorContext);
   const { matchApi, courseApi } = useApiClient(Api.getApiClient);
+
+  const coursesPerPage = 5;
+  const courseListRef = useRef<HTMLDivElement>(null);
+  const queryExamples = [
+    "Explain quantum computing in simple terms",
+    "I want to learn how to program a robot",
+    "Introduction to the stock market and trading"
+  ];
 
   /**
    * Fetches course alias
@@ -83,7 +93,38 @@ const MainScreen: React.FC = () => {
   const onQueryTextChange = (newQueryText: string) => {
     setQueryText(newQueryText);
     setLoading(true);
+    setShowExamples(newQueryText === "");
     onCourseTextMatchDebounced(newQueryText);
+  };
+
+  /**
+   * On course code change handler 
+   */
+  const toggleSearchMode = () => {
+    if (searchMode === SearchMode.TEXT) {
+      setSearchMode(SearchMode.CODE);
+      setQueryText("");
+    } else {
+      setSearchMode(SearchMode.TEXT);
+      setCourseCode("");
+    }
+    setCourses([]);
+    setShowExamples(true);
+  };
+
+  /**
+   * Handles page change
+   * 
+   * @param newPage new page index
+   */
+  const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
+    setPage(newPage);
+    // Wait for a short delay before scrolling to the first course card on the new page
+    setTimeout(() => {
+      if (courseListRef.current !== null) {
+        courseListRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 50);
   };
 
   /**
@@ -96,26 +137,26 @@ const MainScreen: React.FC = () => {
       exclusive
     >
       <ToggleButton
-        color="primary"
         value="left"
-        selected={searchMode === SearchMode.CODE}
-        onClick={() => setSearchMode(SearchMode.CODE)}
-        sx={{ borderRadius: theme.spacing(2) }}
-      >
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Search/>
-          <Typography>{ strings.mainScreen.searchMode.code }</Typography>
-        </Stack>
-      </ToggleButton>
-      <ToggleButton
-        value="right"
         selected={searchMode === SearchMode.TEXT}
-        onClick={() => setSearchMode(SearchMode.TEXT)}
+        onClick={toggleSearchMode}
         sx={{ borderRadius: theme.spacing(2) }}
       >
         <Stack direction="row" alignItems="center" spacing={1}>
           <Edit/>
           <Typography>{ strings.mainScreen.searchMode.text }</Typography>
+        </Stack>
+      </ToggleButton>
+      <ToggleButton
+        color="primary"
+        value="right"
+        selected={searchMode === SearchMode.CODE}
+        onClick={toggleSearchMode}
+        sx={{ borderRadius: theme.spacing(2) }}
+      >
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Search/>
+          <Typography>{ strings.mainScreen.searchMode.code }</Typography>
         </Stack>
       </ToggleButton>
     </ToggleButtonGroup>
@@ -127,13 +168,28 @@ const MainScreen: React.FC = () => {
   const renderCodeSearch = () => {
     const courseOptions = courseAliases.map(alias => ({ label: alias.code, name: `${alias.code} ${alias.name}` }));
 
+    // cut name after the first , or (, then add ... if name is too long
+    courseOptions.forEach(option => {
+      let commaIndex = option.name.indexOf(",");
+      commaIndex === -1 && (commaIndex = option.name.length);
+      let bracketIndex = option.name.indexOf("(");
+      bracketIndex === -1 && (bracketIndex = option.name.length);
+      const cutIndex = Math.min(commaIndex, bracketIndex);
+      option.name = option.name.substring(0, cutIndex);
+      if (option.name.length > 49) {
+        option.name = `${option.name.substring(0, 49)}...`;
+      }
+    });
+
     return (
       <Stack
-        spacing={2}
-        component="form"
-        direction="row"
+        direction="column"
+        alignItems="center"
         width="100%"
+        spacing={4}
+        padding={2}
       >
+        <Typography>{strings.mainScreen.courseCodeDescription}</Typography>
         <Autocomplete
           fullWidth
           disablePortal
@@ -141,40 +197,68 @@ const MainScreen: React.FC = () => {
           inputValue={coursesCode}
           /* eslint-disable @typescript-eslint/no-unused-vars */
           renderOption={(props, option, _) => (<Typography noWrap {...props}>{option.name}</Typography>)}
-          onInputChange={(_, newInputValue) => setCourseCode(newInputValue)}
+          onInputChange={(_, newInputValue) => setCourseCode(newInputValue) }
+          onChange={(_, newValue) => newValue && onCourseCodeMatch(newValue.label) }
           renderInput={params =>
             <TextField
               {...params}
               variant="outlined"
               name="courseCode"
-              label={strings.mainScreen.courseCode}
+              label={strings.mainScreen.courseCodePlaceholder}
             />}
         />
-        <IconButton
-          color="primary"
-          type="submit"
-          disabled={loading}
-          onClick={() => onCourseCodeMatch(coursesCode)}
-        >
-          <Search/>
-        </IconButton>
       </Stack>
     );
   };
 
   /**
+   * Renders examples
+   */
+  const renderExamples = () => (
+    <Stack direction="column" alignItems="center" spacing={2}>
+      <Typography variant="h4" textAlign="center">{strings.mainScreen.examplesTitle}</Typography>
+      <Stack direction="row" spacing={2} alignItems="stretch">
+        {queryExamples.map((example: string) => (
+          <Button
+            key={example}
+            variant="text"
+            onClick={() => onQueryTextChange(example)}
+            sx={{
+              borderRadius: theme.spacing(1),
+              bgcolor: "grey.100",
+              textTransform: "none",
+              flex: 1
+            }}
+          >
+            {example}
+          </Button>
+        ))}
+      </Stack>
+    </Stack>
+  );
+
+  /**
    * Renders text search
    */
   const renderTextSearch = () => (
-    <TextField
-      fullWidth
-      multiline
-      rows={6}
-      value={queryText}
-      variant="outlined"
-      label={strings.mainScreen.courseQueryText}
-      onChange={({ target }) => onQueryTextChange(target.value)}
-    />
+    <Stack
+      direction="column"
+      alignItems="center"
+      width="100%"
+      spacing={4}
+      padding={2}
+    >
+      {showExamples && renderExamples()}
+      <TextField
+        fullWidth
+        multiline
+        rows={6}
+        value={queryText}
+        variant="outlined"
+        label={strings.mainScreen.courseQueryTextPlaceholder}
+        onChange={({ target }) => onQueryTextChange(target.value)}
+      />
+    </Stack>
   );
 
   /**
@@ -199,7 +283,7 @@ const MainScreen: React.FC = () => {
    * Renders search
    */
   const renderSearch = () => (
-    <PaperCard elevation={6} sx={{ width: 650 }}>
+    <PaperCard elevation={6} sx={{ width: 700 }}>
       <Stack
         direction="column"
         alignItems="center"
@@ -209,9 +293,6 @@ const MainScreen: React.FC = () => {
       >
         {renderSearchMode()}
         {searchMode === SearchMode.CODE ? renderCodeSearch() : renderTextSearch()}
-        <Box sx={{ width: "100%" }}>
-          {renderMoreOptions()}
-        </Box>
       </Stack>
     </PaperCard>
   );
@@ -231,11 +312,33 @@ const MainScreen: React.FC = () => {
   /**
    * Renders courses
    */
-  const renderCourses = () => (
-    <Stack spacing={3}>
-      {courses.map(course => <CourseCard course={course}/>)}
-    </Stack>
-  );
+  const renderCourses = () => {
+    const startIndex = (page - 1) * coursesPerPage;
+    const endIndex = startIndex + coursesPerPage;
+    const displayedCourses = courses.slice(startIndex, endIndex);
+  
+    return (
+      <Stack spacing={3}>
+        <div ref={courseListRef}/>
+        {displayedCourses.map(course => (
+          <CourseCard key={course.code} course={course}/>
+        ))}
+        <Stack
+          direction="row"
+          display="flex"
+          justifyContent="center"
+        >
+          { courses.length > coursesPerPage &&
+            <Pagination
+              count={Math.ceil(courses.length / coursesPerPage)}
+              page={page}
+              onChange={handlePageChange}
+            />
+          }
+        </Stack>
+      </Stack>
+    );
+  };
 
   /**
    * Renders loading
@@ -264,6 +367,7 @@ const MainScreen: React.FC = () => {
         alignItems="center"
         spacing={4}
         paddingTop={4}
+        paddingBottom={4}
         sx={{ overflow: "auto", flex: 1 }}
       >
         {renderSearch()}
