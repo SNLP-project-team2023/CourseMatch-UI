@@ -4,6 +4,7 @@ info:
 tags:
 - name: Match
 - name: Course
+- name: Feedback
 servers:
 - url: http://127.0.0.1:5000/
 paths:
@@ -22,6 +23,33 @@ paths:
       tags:
       - Course
       summary: Get Courses
+  /feedback:
+    post:
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feedback'
+          description: Successful response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: Validation error
+      tags:
+      - Feedback
+      summary: Saves feedback
+      description: 'Returns:
+
+        feedback: feedback'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
   /match/text:
     get:
       parameters:
@@ -109,6 +137,22 @@ components:
       required:
       - code
       - name
+    Feedback:
+      type: object
+      properties:
+        query_text:
+          type: string
+        match_text:
+          type: string
+        match_code:
+          type: string
+        label:
+          type: number
+      required:
+      - label
+      - match_code
+      - match_text
+      - query_text
     Course:
       type: object
       properties:
