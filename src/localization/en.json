@@ -16,6 +16,9 @@
     },
     "course": {
       "fetch": "Error occurred when fetching courses"
+    },
+    "feedback": {
+      "send": "Error occurred when sending feedback"
     }
   },
 

@@ -29,6 +29,9 @@ export interface Localized extends LocalizedStringsMethods {
     },
     course: {
       fetch: string;
+    },
+    feedback: {
+      send: string;
     }
   };
 
