@@ -321,7 +321,7 @@ const MainScreen: React.FC = () => {
       <Stack spacing={3}>
         <div ref={courseListRef}/>
         {displayedCourses.map(course => (
-          <CourseCard key={course.code} course={course}/>
+          <CourseCard key={course.code} course={course} queryText={queryText} coursesCode={coursesCode}/>
         ))}
         <Stack
           direction="row"

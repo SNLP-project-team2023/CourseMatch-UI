@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Course } from "generated/client";
-import { Button, Dialog, DialogActions, DialogContent, Divider, Stack, Typography } from "@mui/material";
+import { IconButton, Button, Dialog, DialogActions, DialogContent, Divider, Stack, Typography } from "@mui/material";
+import { ThumbUpRounded, ThumbDownRounded } from "@mui/icons-material";
 import { PaperCard } from "styled/screens/main-screen";
 import { DialogHeader } from "styled/generic/generic-dialog";
+import { useApiClient } from "app/hooks";
+import Api from "api";
 import strings from "localization/strings";
+import { ErrorContext } from "components/contexts/error-handler";
 import * as React from "react";
 
 /**
@@ -11,6 +15,8 @@ import * as React from "react";
  */
 interface Props {
   course: Course;
+  queryText: string;
+  coursesCode: string;
 }
 
 /**
@@ -19,9 +25,62 @@ interface Props {
  * @param props component properties
  */
 const CourseCard: React.FC<Props> = ({
-  course
+  course,
+  queryText,
+  coursesCode
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [hoveredUp, setHoveredUp] = useState(false);
+  const [hoveredDown, setHoveredDown] = useState(false);
+  const [likePressed, setLikePressed] = useState(false);
+  const [dislikePressed, setDislikePressed] = useState(false);
+
+  const errorContext = useContext(ErrorContext);
+  const { feedbackApi } = useApiClient(Api.getApiClient);
+
+  /**
+   * Handles like
+   * 
+   * @param desc course description
+   */
+  const handleLike = async (desc: string) => {
+    setLikePressed(true);
+    try {
+      await feedbackApi.feedbackPost({
+        feedback: {
+          queryText: queryText,
+          matchText: desc !== "" ? desc : "",
+          matchCode: coursesCode !== "" ? coursesCode : "",
+          label: 1
+        }
+      });
+    } catch (error) {
+      setLikePressed(false);
+      errorContext.setError(strings.errorHandling.feedback.send);
+    }
+  };
+
+  /**
+   * Handles dislike
+   * 
+   * @param desc course description
+   */
+  const handleDislike = async (desc: string) => {
+    setDislikePressed(true);
+    try {
+      await feedbackApi.feedbackPost({
+        feedback: {
+          queryText: queryText,
+          matchText: desc !== "" ? desc : "",
+          matchCode: coursesCode !== "" ? coursesCode : "",
+          label: 0
+        }
+      });
+    } catch (error) {
+      setDislikePressed(false);
+      errorContext.setError(strings.errorHandling.feedback.send);
+    }
+  };
 
   /**
    * Renders course dialog
@@ -85,12 +144,38 @@ const CourseCard: React.FC<Props> = ({
    */
   return (
     <>
-      <PaperCard elevation={6} sx={{ width: 700, cursor: "pointer" }} onClick={() => setDialogOpen(true)}>
+      <PaperCard elevation={6} sx={{ width: 700, cursor: "pointer" }} onClick={() => !(hoveredUp || hoveredDown) && setDialogOpen(true)}>
         <Stack spacing={2}>
-          <Stack>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="h3">{course.name}</Typography>
-            <Typography variant="body2">{course.code}</Typography>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              {!dislikePressed && (
+                <IconButton disabled={likePressed} onClick={() => course.desc && handleLike(course.desc)}>
+                  <ThumbUpRounded
+                    sx={{
+                      cursor: "pointer",
+                      color: hoveredUp ? "#4caf50" : "inherit"
+                    }}
+                    onMouseEnter={() => setHoveredUp(true)}
+                    onMouseLeave={() => setHoveredUp(false)}
+                  />
+                </IconButton>
+              )}
+              {!likePressed && (
+                <IconButton disabled={dislikePressed} onClick={() => course.desc && handleDislike(course.desc)}>
+                  <ThumbDownRounded
+                    sx={{
+                      cursor: "pointer",
+                      color: hoveredDown ? "#f44336" : "inherit"
+                    }}
+                    onMouseEnter={() => setHoveredDown(true)}
+                    onMouseLeave={() => setHoveredDown(false)}
+                  />
+                </IconButton>
+              )}
+            </Stack>
           </Stack>
+          <Typography variant="body2">{course.code}</Typography>
           <Stack>
             <Typography variant="h5">{course.language}</Typography>
             <Typography variant="h5">{course.period}</Typography>
