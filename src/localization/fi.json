@@ -16,6 +16,9 @@
     },
     "course": {
       "fetch": "Virhe tapahtui kurssien noutamisessa"
+    },
+    "feedback": {
+      "send": "Palautetta lähetettäessä tapahtui virhe"
     }
   },
 

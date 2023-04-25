@@ -1,7 +1,7 @@
 // import { Configuration } from "../generated/client";
 
 import Config from "app/config";
-import { Configuration, ConfigurationParameters, CourseApi, MatchApi } from "generated/client";
+import { Configuration, ConfigurationParameters, CourseApi, MatchApi, FeedbackApi } from "generated/client";
 
 /**
  * Utility class for loading api with predefined configuration
@@ -37,7 +37,8 @@ namespace Api {
 
     return {
       matchApi: new MatchApi(getConfiguration()),
-      courseApi: new CourseApi(getConfiguration())
+      courseApi: new CourseApi(getConfiguration()),
+      feedbackApi: new FeedbackApi(getConfiguration())
     };
   };
 
