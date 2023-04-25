@@ -4,6 +4,7 @@ import { IconButton, Button, Dialog, DialogActions, DialogContent, Divider, Stac
 import { ThumbUpRounded, ThumbDownRounded } from "@mui/icons-material";
 import { PaperCard } from "styled/screens/main-screen";
 import { DialogHeader } from "styled/generic/generic-dialog";
+import theme from "theme";
 import { useApiClient } from "app/hooks";
 import Api from "api";
 import strings from "localization/strings";
@@ -154,7 +155,7 @@ const CourseCard: React.FC<Props> = ({
                   <ThumbUpRounded
                     sx={{
                       cursor: "pointer",
-                      color: hoveredUp ? "#4caf50" : "inherit"
+                      color: hoveredUp ? theme.palette.success.light : "inherit"
                     }}
                     onMouseEnter={() => setHoveredUp(true)}
                     onMouseLeave={() => setHoveredUp(false)}
@@ -166,7 +167,7 @@ const CourseCard: React.FC<Props> = ({
                   <ThumbDownRounded
                     sx={{
                       cursor: "pointer",
-                      color: hoveredDown ? "#f44336" : "inherit"
+                      color: hoveredDown ? theme.palette.error.light : "inherit"
                     }}
                     onMouseEnter={() => setHoveredDown(true)}
                     onMouseLeave={() => setHoveredDown(false)}
