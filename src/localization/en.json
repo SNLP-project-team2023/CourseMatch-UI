@@ -49,9 +49,9 @@
     },
     "moreOptions": "more options",
     "courseCodePlaceholder": "Course code",
-    "courseCodeDescription": "Pick a course from the list to get the most matched courses.",
-    "courseQueryTextPlaceholder": "Send a message...",
+    "courseCodeDescription": "Find similar courses",
+    "courseQueryTextPlaceholder": "Describe the course...",
     "matchYourCourses": "Match your courses!",
-    "examplesTitle": "Ask anything or try an example"
+    "examplesTitle": "Describe what course you are looking for"
   }
 }
