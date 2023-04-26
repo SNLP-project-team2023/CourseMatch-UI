@@ -35,7 +35,7 @@
   "header": {
     "icon": "A!",
     "title": "CourseMatch",
-    "infoText": "CourseMatch on suosittelujärjestelmä, joka perustuu sanojen upottamistekniikkaan kurssivalinnassa. Se vertaa käyttäjän kurssihakua Aalto API:n kautta saatavilla olevaan kurssikuvaustietokantaan ja ehdottaa sopivimpia kursseja.",
+    "infoText": "CourseMatch on suosittelujärjestelmä, joka perustuu sanojen upottamistekniikkaan kurssivalinnassa. Se vertaa käyttäjän kurssihakua Aalto API:n kautta saatavilla olevaan kurssikuvaustietokantaan ja ehdottaa sopivimpia kursseja. Se toimii vain englanninkielisten hakujen kanssa.",
     "languages": {
       "fi": "fi",
       "en": "en"
@@ -49,9 +49,9 @@
     },
     "moreOptions": "lisää vaihtoehtoja",
     "courseCodePlaceholder": "Kurssin koodi",
-    "courseCodeDescription": "Valitse kurssi luettelosta saadaksesi sopivimmat kurssit.",
-    "courseQueryTextPlaceholder": "Lähetä viesti...",
+    "courseCodeDescription": "Etsi samankaltaisia kursseja kuin luettelossa olevat",
+    "courseQueryTextPlaceholder": "Mitä haluaisit oppia tänään?",
     "matchYourCourses": "Sovita kurssit yhteen!",
-    "examplesTitle": "Kysy mitä tahansa tai kokeile esimerkkiä"
+    "examplesTitle": "Kerro, mitä haluaisit oppia tai kokeile esimerkkiä"
   }
 }
