@@ -11,6 +11,7 @@ import Api from "api";
 import { Edit, ExpandMore, Search } from "@mui/icons-material";
 import { EmptyBox, PaperCard } from "styled/screens/main-screen";
 import theme from "theme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 /**
  * Main screen component
@@ -27,6 +28,8 @@ const MainScreen: React.FC = () => {
   const [selectedLanguageOptions, setSelectedLanguageOptions] = useState<string[]>([]);
   const [selectedSemesterOptions, setSelectedSemesterOptions] = useState<string[]>([]);
   const [queryExampleLanguage, setQueryExampleLanguage] = useState<string>("set1");
+
+  const smallScreen = useMediaQuery("(max-width:600px)");
 
   const errorContext = useContext(ErrorContext);
   const { matchApi, courseApi } = useApiClient(Api.getApiClient);
@@ -144,7 +147,7 @@ const MainScreen: React.FC = () => {
   };
 
   /**
-   * On course code change handler 
+   * On course code change handler
    */
   const toggleSearchMode = () => {
     if (searchMode === SearchMode.TEXT) {
@@ -160,7 +163,7 @@ const MainScreen: React.FC = () => {
 
   /**
    * Handles page change
-   * 
+   *
    * @param newPage new page index
    */
   const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
@@ -263,7 +266,7 @@ const MainScreen: React.FC = () => {
   const renderExamples = () => (
     <Stack direction="column" alignItems="center" spacing={2}>
       <Typography variant="h4" textAlign="center">{strings.mainScreen.examplesTitle}</Typography>
-      <Stack direction="row" spacing={2} alignItems="stretch">
+      <Stack direction={ smallScreen ? "column" : "row"} spacing={2} alignItems="stretch">
         {queryExamples[queryExampleLanguage].map((example: string) => (
           <Button
             key={example}
@@ -363,7 +366,7 @@ const MainScreen: React.FC = () => {
    * Renders search
    */
   const renderSearch = () => (
-    <PaperCard elevation={6} sx={{ width: 700 }}>
+    <PaperCard elevation={6} sx={{ width: 700, maxWidth: "80%" }}>
       <Stack
         direction="column"
         alignItems="center"
@@ -422,14 +425,14 @@ const MainScreen: React.FC = () => {
       }
       return true;
     });
-    
+
     // Slice courses to display only coursesPerPage
     const startIndex = (page - 1) * coursesPerPage;
     const endIndex = startIndex + coursesPerPage;
     const displayedCourses = filteredCourses.slice(startIndex, endIndex);
-  
+
     return displayedCourses.length <= 0 ? renderEmptyFilterResults() : (
-      <Stack spacing={3}>
+      <Stack spacing={3} maxWidth="80%">
         <div ref={courseListRef}/>
         {displayedCourses.map(course => (
           <CourseCard key={course.code} course={course} queryText={queryText} coursesCode={coursesCode}/>

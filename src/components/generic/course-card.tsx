@@ -145,7 +145,13 @@ const CourseCard: React.FC<Props> = ({
    */
   return (
     <>
-      <PaperCard elevation={6} sx={{ width: 700, cursor: "pointer" }} onClick={() => !(hoveredUp || hoveredDown) && setDialogOpen(true)}>
+      <PaperCard
+        elevation={6}
+        sx={{
+          width: 700, cursor: "pointer", maxWidth: "100%"
+        }}
+        onClick={() => !(hoveredUp || hoveredDown) && setDialogOpen(true)}
+      >
         <Stack spacing={2}>
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="h3">{course.name}</Typography>
