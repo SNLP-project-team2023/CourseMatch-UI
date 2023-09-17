@@ -92,6 +92,7 @@ const CourseCard: React.FC<Props> = ({
       open={ dialogOpen }
       onClose={ () => setDialogOpen(false) }
       maxWidth="md"
+      PaperProps={{ style: { maxHeight: "80vh" } }}
     >
       <DialogHeader>
         <Stack>
