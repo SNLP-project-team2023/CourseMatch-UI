@@ -391,7 +391,7 @@ const MainScreen: React.FC = () => {
    * Renders empty result
    */
   const renderEmptyResult = () => (
-    <EmptyBox>
+    <EmptyBox style={{ width: "100%" }}>
       <Stack alignItems="center" spacing={1} color="rgba(0,0,0,0.6)">
         <Search fontSize="large"/>
         <Typography variant="h3">{strings.mainScreen.matchYourCourses}</Typography>
@@ -403,7 +403,7 @@ const MainScreen: React.FC = () => {
    * Renders empty filter results
    */
   const renderEmptyFilterResults = () => (
-    <EmptyBox>
+    <EmptyBox style={{ width: "100%" }}>
       <Stack alignItems="center" spacing={1} color="rgba(0,0,0,0.6)">
         <Search fontSize="large"/>
         <Typography variant="h3">{strings.mainScreen.noResultsWithFilters}</Typography>
@@ -440,7 +440,7 @@ const MainScreen: React.FC = () => {
         <Stack
           direction="row"
           display="flex"
-          justifyContent="center"
+          justifyContent="right"
         >
           { courses.length > coursesPerPage &&
             <Pagination

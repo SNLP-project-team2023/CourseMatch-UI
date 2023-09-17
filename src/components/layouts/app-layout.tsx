@@ -48,6 +48,8 @@ const AppLayout: React.FC = ({ children }) => {
       direction="row"
       alignItems="center"
       spacing={4}
+      onClick={ () => window.location.reload() }
+      style={{ cursor: "pointer" }}
     >
       <Typography variant="h3" sx={{ fontWeight: 600 }}>{strings.header.icon}</Typography>
       <Typography variant="h3" sx={{ fontWeight: 600 }}>{strings.header.title }</Typography>
