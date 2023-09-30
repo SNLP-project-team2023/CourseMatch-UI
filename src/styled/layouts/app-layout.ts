@@ -7,7 +7,7 @@ import { styled } from "@mui/material/styles";
 export const Root = styled(Box, {
   label: "app-layout--root"
 })(({ theme }) => ({
-  height: "100vh",
+  minHeight: "100vh",
   width: "100vw",
   overflow: "hidden",
   display: "flex",
@@ -21,11 +21,11 @@ export const Root = styled(Box, {
 export const Content = styled(Box, {
   label: "app-layout--content"
 })(({ theme }) => ({
-  backgroundColor: "rgba(218,219,205,0.1)",
+  flex: 1,
+  minHeight: `calc(100vh - ${theme.spacing(64)}px)`,
+  width: "100%",
+  overflow: "hidden",
   display: "flex",
   flexDirection: "column",
-  flex: 1,
-  width: "100%",
-  minHeight: `calc(100vh - ${theme.spacing(64)}px)`,
-  overflow: "hidden"
+  backgroundColor: "rgba(218,219,205,0.1)"
 }));

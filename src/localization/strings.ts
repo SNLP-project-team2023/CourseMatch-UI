@@ -59,6 +59,8 @@ export interface Localized extends LocalizedStringsMethods {
     goToMycourses: string;
     goToSisu: string;
     moreInfo: string;
+    positiveFeedback: string;
+    negativeFeedback: string;
   }
 
   /**

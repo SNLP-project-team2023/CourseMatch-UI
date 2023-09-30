@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Course } from "generated/client";
-import { IconButton, Button, Dialog, DialogActions, DialogContent, Divider, Stack, Typography } from "@mui/material";
+import { IconButton, Button, Dialog, DialogActions, DialogContent, Divider, Stack, Typography, Tooltip } from "@mui/material";
 import { ThumbUpRounded, ThumbDownRounded } from "@mui/icons-material";
 import { PaperCard } from "styled/screens/main-screen";
 import { DialogHeader } from "styled/generic/generic-dialog";
@@ -92,12 +92,42 @@ const CourseCard: React.FC<Props> = ({
       open={ dialogOpen }
       onClose={ () => setDialogOpen(false) }
       maxWidth="md"
-      PaperProps={{ style: { maxHeight: "80vh" } }}
+      PaperProps={{ style: { maxHeight: "70%" } }}
     >
       <DialogHeader>
         <Stack>
           <Typography variant="h3">{`${course.name} (${course.credits}${strings.course.credits})`}</Typography>
           <Typography variant="body2">{course.code}</Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            {!dislikePressed && (
+              <Tooltip title={strings.course.positiveFeedback} arrow>
+                <IconButton disabled={likePressed} onClick={() => course.desc && handleLike(course.desc)}>
+                  <ThumbUpRounded
+                    sx={{
+                      cursor: "pointer",
+                      color: hoveredUp ? theme.palette.success.light : "inherit"
+                    }}
+                    onMouseEnter={() => setHoveredUp(true)}
+                    onMouseLeave={() => setHoveredUp(false)}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
+            {!likePressed && (
+              <Tooltip title={strings.course.negativeFeedback} arrow>
+                <IconButton disabled={dislikePressed} onClick={() => course.desc && handleDislike(course.desc)}>
+                  <ThumbDownRounded
+                    sx={{
+                      cursor: "pointer",
+                      color: hoveredDown ? theme.palette.error.light : "inherit"
+                    }}
+                    onMouseEnter={() => setHoveredDown(true)}
+                    onMouseLeave={() => setHoveredDown(false)}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Stack>
         </Stack>
       </DialogHeader>
       <DialogContent>
@@ -149,44 +179,16 @@ const CourseCard: React.FC<Props> = ({
       <PaperCard
         elevation={6}
         sx={{
-          width: 700, cursor: "pointer", maxWidth: "100%"
+          cursor: "pointer", maxWidth: "100%"
         }}
-        onClick={() => !(hoveredUp || hoveredDown) && setDialogOpen(true)}
+        onClick={() => setDialogOpen(true)}
       >
         <Stack spacing={2}>
-          <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Typography variant="h3">{course.name}</Typography>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              {!dislikePressed && (
-                <IconButton disabled={likePressed} onClick={() => course.desc && handleLike(course.desc)}>
-                  <ThumbUpRounded
-                    sx={{
-                      cursor: "pointer",
-                      color: hoveredUp ? theme.palette.success.light : "inherit"
-                    }}
-                    onMouseEnter={() => setHoveredUp(true)}
-                    onMouseLeave={() => setHoveredUp(false)}
-                  />
-                </IconButton>
-              )}
-              {!likePressed && (
-                <IconButton disabled={dislikePressed} onClick={() => course.desc && handleDislike(course.desc)}>
-                  <ThumbDownRounded
-                    sx={{
-                      cursor: "pointer",
-                      color: hoveredDown ? theme.palette.error.light : "inherit"
-                    }}
-                    onMouseEnter={() => setHoveredDown(true)}
-                    onMouseLeave={() => setHoveredDown(false)}
-                  />
-                </IconButton>
-              )}
-            </Stack>
-          </Stack>
+          <Typography variant="h3">{course.name}</Typography>
           <Typography variant="body2">{course.code}</Typography>
           <Stack>
             <Typography variant="h5">{course.language}</Typography>
-            <Typography variant="h5">{course.period}</Typography>
+            <Typography variant="h5" style={{ wordBreak: "break-all" }}>{course.period}</Typography>
           </Stack>
           <Typography
             variant="body2"
