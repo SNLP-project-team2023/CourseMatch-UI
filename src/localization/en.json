@@ -29,7 +29,9 @@
     "description": "Description",
     "goToMycourses": "Go to myCourses",
     "goToSisu": "Go to Sisu",
-    "moreInfo": "See details"
+    "moreInfo": "See details",
+    "positiveFeedback": "Good response",
+    "negativeFeedback": "Bad response"
   },
 
   "header": {

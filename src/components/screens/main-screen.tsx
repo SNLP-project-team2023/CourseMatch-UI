@@ -30,6 +30,7 @@ const MainScreen: React.FC = () => {
   const [queryExampleLanguage, setQueryExampleLanguage] = useState<string>("set1");
 
   const smallScreen = useMediaQuery("(max-width:600px)");
+  const superSmallScreen = useMediaQuery("(max-width:350px)");
 
   const errorContext = useContext(ErrorContext);
   const { matchApi, courseApi } = useApiClient(Api.getApiClient);
@@ -366,7 +367,7 @@ const MainScreen: React.FC = () => {
    * Renders search
    */
   const renderSearch = () => (
-    <PaperCard elevation={6} sx={{ width: 700, maxWidth: "80%" }}>
+    <PaperCard elevation={6}>
       <Stack
         direction="column"
         alignItems="center"
@@ -376,7 +377,7 @@ const MainScreen: React.FC = () => {
       >
         {renderSearchMode()}
         {searchMode === SearchMode.CODE ? renderCodeSearch() : renderTextSearch()}
-        <Stack direction="row" spacing={1}>
+        <Stack direction={superSmallScreen ? "column" : "row"} spacing={1} alignItems="center">
           {renderLanguageOption({ value: "en" })}
           {renderLanguageOption({ value: "fi" })}
           {renderLanguageOption({ value: "sv" })}
@@ -391,7 +392,7 @@ const MainScreen: React.FC = () => {
    * Renders empty result
    */
   const renderEmptyResult = () => (
-    <EmptyBox style={{ width: "100%" }}>
+    <EmptyBox>
       <Stack alignItems="center" spacing={1} color="rgba(0,0,0,0.6)">
         <Search fontSize="large"/>
         <Typography variant="h3">{strings.mainScreen.matchYourCourses}</Typography>
@@ -403,7 +404,7 @@ const MainScreen: React.FC = () => {
    * Renders empty filter results
    */
   const renderEmptyFilterResults = () => (
-    <EmptyBox style={{ width: "100%" }}>
+    <EmptyBox>
       <Stack alignItems="center" spacing={1} color="rgba(0,0,0,0.6)">
         <Search fontSize="large"/>
         <Typography variant="h3">{strings.mainScreen.noResultsWithFilters}</Typography>
@@ -434,13 +435,10 @@ const MainScreen: React.FC = () => {
     return displayedCourses.length <= 0 ? renderEmptyFilterResults() : (
       <Stack spacing={3} maxWidth="80%">
         <div ref={courseListRef}/>
-        {displayedCourses.map(course => (
-          <CourseCard key={course.code} course={course} queryText={queryText} coursesCode={coursesCode}/>
-        ))}
         <Stack
           direction="row"
           display="flex"
-          justifyContent="right"
+          justifyContent="center"
         >
           { courses.length > coursesPerPage &&
             <Pagination
@@ -450,6 +448,9 @@ const MainScreen: React.FC = () => {
             />
           }
         </Stack>
+        {displayedCourses.map(course => (
+          <CourseCard key={course.code} course={course} queryText={queryText} coursesCode={coursesCode}/>
+        ))}
       </Stack>
     );
   };

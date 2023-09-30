@@ -75,7 +75,7 @@ const AppLayout: React.FC = ({ children }) => {
 
   return (
     <Root>
-      <AppBar sx={{ backgroundColor: theme.palette.primary.main }} position="static">
+      <AppBar sx={{ backgroundColor: theme.palette.primary.main }} position="fixed">
         <Toolbar sx={{ width: "100%" }}>
           <Stack
             width="100%"
@@ -88,6 +88,7 @@ const AppLayout: React.FC = ({ children }) => {
           </Stack>
         </Toolbar>
       </AppBar>
+      <Toolbar/>
       <Content>
         { children }
       </Content>

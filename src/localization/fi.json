@@ -29,7 +29,9 @@
     "description": "Kuvaus",
     "goToMycourses": "Siirry MyCoursesiin",
     "goToSisu": "Siirry Sisuun",
-    "moreInfo": "Katso lisätietoja"
+    "moreInfo": "Katso lisätietoja",
+    "positiveFeedback": "Hyvä vastaus",
+    "negativeFeedback": "Huono vastaus"
   },
 
   "header": {
