@@ -55,9 +55,14 @@ const CourseCard: React.FC<Props> = ({
           label: 1
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       setLikePressed(false);
-      errorContext.setError(strings.errorHandling.feedback.send);
+      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.feedback.send}`;
+      if (error.response?.status === 503) {
+        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
+        return;
+      }
+      errorContext.setError(errorMessage);
     }
   };
 
@@ -77,9 +82,14 @@ const CourseCard: React.FC<Props> = ({
           label: 0
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       setDislikePressed(false);
-      errorContext.setError(strings.errorHandling.feedback.send);
+      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.feedback.send}`;
+      if (error.response?.status === 503) {
+        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
+        return;
+      }
+      errorContext.setError(errorMessage);
     }
   };
 

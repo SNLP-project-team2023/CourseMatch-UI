@@ -6,7 +6,8 @@
     "edit": "Edit",
     "logout": "Logout",
     "notImplemented": "Not yet implemented",
-    "save": "Save"
+    "save": "Save",
+    "serviceUnavailable": "Matching is currently unavailable. We are currently experiencing high demand, please hand tight few minutes while we are scaling our systems"
   },
 
   "errorHandling": {

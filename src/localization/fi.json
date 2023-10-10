@@ -6,7 +6,8 @@
     "edit": "Muokkaa",
     "logout": "Kirjaudu ulos",
     "notImplemented": "Ei vielä toteutettu",
-    "save": "Tallenna"
+    "save": "Tallenna",
+    "serviceUnavailable": "Matching ei ole tällä hetkellä käytettävissä. Meillä on tällä hetkellä suuri kysyntä, ole hyvä ja anna tiukka muutaman minuutin, kun olemme skaalaus järjestelmämme"
   },
 
   "errorHandling": {
