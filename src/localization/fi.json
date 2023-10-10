@@ -12,10 +12,10 @@
   "errorHandling": {
     "title": "Virhe",
     "match": {
-      "fetch": "Virhe tapahtui kurssien täsmäytyksessä"
+      "fetch": "Virhe tapahtui kurssien noutamisessa. Meillä on tällä hetkellä suuri kysyntä, ole hyvä ja anna tiukka muutaman minuutin, kun olemme skaalaus järjestelmämme"
     },
     "course": {
-      "fetch": "Virhe tapahtui kurssien noutamisessa"
+      "fetch": "Virhe tapahtui kurssien noutamisessa. Meillä on tällä hetkellä suuri kysyntä, ole hyvä ja anna tiukka muutaman minuutin, kun olemme skaalaus järjestelmämme"
     },
     "feedback": {
       "send": "Palautetta lähetettäessä tapahtui virhe"
