@@ -92,13 +92,8 @@ const MainScreen: React.FC = () => {
     try {
       const fetchedCourseAliases = await courseApi.coursesGet();
       setCourseAliases(fetchedCourseAliases);
-    } catch (error: any) {
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.course.fetch}`;
-      if (error.response?.status === 503) {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+    } catch (error) {
+      errorContext.setError(strings.errorHandling.course.fetch);
     }
   };
 
@@ -116,13 +111,8 @@ const MainScreen: React.FC = () => {
     try {
       const fetchedCourses = await matchApi.matchCourseCodeGet({ courseCode: code });
       setCourses(fetchedCourses);
-    } catch (error: any) {
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.match.fetch}`;
-      if (error.response?.status === 503) {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+    } catch (error) {
+      errorContext.setError(strings.errorHandling.match.fetch);
     }
     setLoading(false);
   };
@@ -136,13 +126,8 @@ const MainScreen: React.FC = () => {
     try {
       const fetchedCourses = await matchApi.matchTextGet({ queryText: text });
       setCourses(fetchedCourses);
-    } catch (error: any) {
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.match.fetch}`;
-      if (error.response?.status === 503) {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+    } catch (error) {
+      errorContext.setError(strings.errorHandling.match.fetch);
     }
     setLoading(false);
   };
