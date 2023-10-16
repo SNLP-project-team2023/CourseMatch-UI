@@ -93,8 +93,8 @@ const MainScreen: React.FC = () => {
       const fetchedCourseAliases = await courseApi.coursesGet();
       setCourseAliases(fetchedCourseAliases);
     } catch (error: any) {
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.course.fetch}`;
-      if (error.response?.status === 503) {
+      const errorMessage = `${strings.errorHandling.course.fetch}`;
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
         errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
         return;
       }
@@ -117,8 +117,8 @@ const MainScreen: React.FC = () => {
       const fetchedCourses = await matchApi.matchCourseCodeGet({ courseCode: code });
       setCourses(fetchedCourses);
     } catch (error: any) {
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.match.fetch}`;
-      if (error.response?.status === 503) {
+      const errorMessage = `${strings.errorHandling.match.fetch}`;
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
         errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
         return;
       }
@@ -137,8 +137,8 @@ const MainScreen: React.FC = () => {
       const fetchedCourses = await matchApi.matchTextGet({ queryText: text });
       setCourses(fetchedCourses);
     } catch (error: any) {
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.match.fetch}`;
-      if (error.response?.status === 503) {
+      const errorMessage = `${strings.errorHandling.match.fetch}`;
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
         errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
         return;
       }

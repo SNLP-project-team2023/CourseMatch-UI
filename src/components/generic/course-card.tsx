@@ -57,8 +57,8 @@ const CourseCard: React.FC<Props> = ({
       });
     } catch (error: any) {
       setLikePressed(false);
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.feedback.send}`;
-      if (error.response?.status === 503) {
+      const errorMessage = `${strings.errorHandling.feedback.send}`;
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
         errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
         return;
       }
@@ -84,8 +84,8 @@ const CourseCard: React.FC<Props> = ({
       });
     } catch (error: any) {
       setDislikePressed(false);
-      const errorMessage = `${error.response?.status || ""} ${strings.errorHandling.feedback.send}`;
-      if (error.response?.status === 503) {
+      const errorMessage = `${strings.errorHandling.feedback.send}`;
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
         errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
         return;
       }
