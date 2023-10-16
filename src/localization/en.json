@@ -6,16 +6,17 @@
     "edit": "Edit",
     "logout": "Logout",
     "notImplemented": "Not yet implemented",
-    "save": "Save"
+    "save": "Save",
+    "serviceUnavailable": "Service unavailable. We are currently experiencing high demand, please hand tight while we are scaling our systems and retry in a few minutes"
   },
 
   "errorHandling": {
     "title": "Error",
     "match": {
-      "fetch": "Error occurred when matching courses. We are currently experiencing high demand, please hand tight few minutes while we are scaling our systems"
+      "fetch": "Error occurred when matching courses"
     },
     "course": {
-      "fetch": "Error occurred when matching courses. We are currently experiencing high demand, please hand tight few minutes while we are scaling our systems"
+      "fetch": "Error occurred when fetching courses"
     },
     "feedback": {
       "send": "Error occurred when sending feedback"

@@ -6,16 +6,17 @@
     "edit": "Muokkaa",
     "logout": "Kirjaudu ulos",
     "notImplemented": "Ei vielä toteutettu",
-    "save": "Tallenna"
+    "save": "Tallenna",
+    "serviceUnavailable": "Palvelu ei ole käytettävissä. Meillä on tällä hetkellä suuri kysyntä, ole hyvä ja pidä tiukasti kiinni, kun skaalaamme järjestelmiämme, ja yritä uudelleen muutaman minuutin kuluttua"
   },
 
   "errorHandling": {
     "title": "Virhe",
     "match": {
-      "fetch": "Virhe tapahtui kurssien noutamisessa. Meillä on tällä hetkellä suuri kysyntä, ole hyvä ja anna tiukka muutaman minuutin, kun olemme skaalaus järjestelmämme"
+      "fetch": "Virhe tapahtui kurssien täsmäytyksessä"
     },
     "course": {
-      "fetch": "Virhe tapahtui kurssien noutamisessa. Meillä on tällä hetkellä suuri kysyntä, ole hyvä ja anna tiukka muutaman minuutin, kun olemme skaalaus järjestelmämme"
+      "fetch": "Virhe tapahtui kurssien noutamisessa"
     },
     "feedback": {
       "send": "Palautetta lähetettäessä tapahtui virhe"
