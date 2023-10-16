@@ -58,11 +58,7 @@ const CourseCard: React.FC<Props> = ({
     } catch (error) {
       setLikePressed(false);
       const errorMessage = `${strings.errorHandling.feedback.send}`;
-      if (error instanceof TypeError && error.message === "Failed to fetch") {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+      errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
     }
   };
 
@@ -85,11 +81,7 @@ const CourseCard: React.FC<Props> = ({
     } catch (error) {
       setDislikePressed(false);
       const errorMessage = `${strings.errorHandling.feedback.send}`;
-      if (error instanceof TypeError && error.message === "Failed to fetch") {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+      errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
     }
   };
 

@@ -94,11 +94,7 @@ const MainScreen: React.FC = () => {
       setCourseAliases(fetchedCourseAliases);
     } catch (error: any) {
       const errorMessage = `${strings.errorHandling.course.fetch}`;
-      if (error instanceof TypeError && error.message === "Failed to fetch") {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+      errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
     }
   };
 
@@ -118,11 +114,7 @@ const MainScreen: React.FC = () => {
       setCourses(fetchedCourses);
     } catch (error: any) {
       const errorMessage = `${strings.errorHandling.match.fetch}`;
-      if (error instanceof TypeError && error.message === "Failed to fetch") {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+      errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
     }
     setLoading(false);
   };
@@ -138,11 +130,7 @@ const MainScreen: React.FC = () => {
       setCourses(fetchedCourses);
     } catch (error: any) {
       const errorMessage = `${strings.errorHandling.match.fetch}`;
-      if (error instanceof TypeError && error.message === "Failed to fetch") {
-        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
-        return;
-      }
-      errorContext.setError(errorMessage);
+      errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
     }
     setLoading(false);
   };

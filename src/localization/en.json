@@ -7,7 +7,7 @@
     "logout": "Logout",
     "notImplemented": "Not yet implemented",
     "save": "Save",
-    "serviceUnavailable": "Service unavailable. We are currently experiencing high demand, please hand tight while we are scaling our systems and retry in a few minutes"
+    "serviceUnavailable": "Service unavailable. Retry in a few minutes"
   },
 
   "errorHandling": {

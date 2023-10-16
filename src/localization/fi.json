@@ -7,7 +7,7 @@
     "logout": "Kirjaudu ulos",
     "notImplemented": "Ei vielä toteutettu",
     "save": "Tallenna",
-    "serviceUnavailable": "Palvelu ei ole käytettävissä. Meillä on tällä hetkellä suuri kysyntä, ole hyvä ja pidä tiukasti kiinni, kun skaalaamme järjestelmiämme, ja yritä uudelleen muutaman minuutin kuluttua"
+    "serviceUnavailable": "Palvelu ei ole käytettävissä. Yritä uudelleen muutaman minuutin kuluttua"
   },
 
   "errorHandling": {
