@@ -55,7 +55,7 @@ const CourseCard: React.FC<Props> = ({
           label: 1
         }
       });
-    } catch (error: any) {
+    } catch (error) {
       setLikePressed(false);
       const errorMessage = `${strings.errorHandling.feedback.send}`;
       if (error instanceof TypeError && error.message === "Failed to fetch") {
@@ -82,7 +82,7 @@ const CourseCard: React.FC<Props> = ({
           label: 0
         }
       });
-    } catch (error: any) {
+    } catch (error) {
       setDislikePressed(false);
       const errorMessage = `${strings.errorHandling.feedback.send}`;
       if (error instanceof TypeError && error.message === "Failed to fetch") {
