@@ -57,7 +57,12 @@ const CourseCard: React.FC<Props> = ({
       });
     } catch (error) {
       setLikePressed(false);
-      errorContext.setError(strings.errorHandling.feedback.send);
+      const errorMessage = `${strings.errorHandling.feedback.send}`;
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
+        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
+        return;
+      }
+      errorContext.setError(errorMessage);
     }
   };
 
@@ -79,7 +84,12 @@ const CourseCard: React.FC<Props> = ({
       });
     } catch (error) {
       setDislikePressed(false);
-      errorContext.setError(strings.errorHandling.feedback.send);
+      const errorMessage = `${strings.errorHandling.feedback.send}`;
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
+        errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
+        return;
+      }
+      errorContext.setError(errorMessage);
     }
   };
 
