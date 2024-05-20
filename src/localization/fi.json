@@ -7,7 +7,8 @@
     "logout": "Kirjaudu ulos",
     "notImplemented": "Ei vielä toteutettu",
     "save": "Tallenna",
-    "serviceUnavailable": "Palvelu ei ole käytettävissä. Yritä uudelleen muutaman minuutin kuluttua"
+    "serviceUnavailable": "Palvelu ei ole käytettävissä. Yritä uudelleen muutaman minuutin kuluttua",
+    "shutDown": "Sovellus suljetaan pian palvelun ylläpitokustannusten vuoksi. Olemme iloisia voidessamme todeta, että Aallon opiskelijat ovat käyttäneet CourseMatch yli 70k kertaa. Kuulisimme mielellämme teidän tarinoita sovelluksen käytöstä. Jaa ne kanssamme osoitteessa late.truest0l@icloud.com. Harkitse tukeaksesi meitä lahjoituksella osoitteessa https://ko-fi.com/matteo79894, jos pidit palvelusta. Arvostamme mitä tahansa summaa, jonka voit lahjoittaa. Kiitos, että käytät CourseMatch!"
   },
 
   "errorHandling": {

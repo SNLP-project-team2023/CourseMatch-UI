@@ -18,6 +18,7 @@ export interface Localized extends LocalizedStringsMethods {
     notImplemented: string;
     save: string;
     serviceUnavailable: string;
+    shutDown: string;
   };
 
   /**

@@ -93,8 +93,9 @@ const MainScreen: React.FC = () => {
       const fetchedCourseAliases = await courseApi.coursesGet();
       setCourseAliases(fetchedCourseAliases);
     } catch (error: any) {
-      const errorMessage = `${strings.errorHandling.course.fetch}`;
-      errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
+      // const errorMessage = `${strings.errorHandling.course.fetch}`;
+      // errorContext.setError(`${errorMessage}. ${strings.generic.serviceUnavailable}`);
+      errorContext.setError(`${strings.generic.shutDown}`);
     }
   };
 

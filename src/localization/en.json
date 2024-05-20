@@ -7,7 +7,8 @@
     "logout": "Logout",
     "notImplemented": "Not yet implemented",
     "save": "Save",
-    "serviceUnavailable": "Service unavailable. Retry in a few minutes"
+    "serviceUnavailable": "Service unavailable. Retry in a few minutes",
+    "shutDown": "The app will close soon due to the cost of maintaining the service. We are happy to say that CourseMatch has been used more than 70k times by Aalto students. We would love to hear your stories in using the app. Share them with us at late.truest0l@icloud.com. Please consider supporting us with a donation at https://ko-fi.com/matteo79894 if you enjoyed the service. We appreciate any amount you can donate. Thank you for using CourseMatch!"
   },
 
   "errorHandling": {
